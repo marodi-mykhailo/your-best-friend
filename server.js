@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(async (req, res, next) => {
     if (req.headers['access-token']) {
         const accessToken = req.headers['access-token']
-        const {userId, exp} = await jwt.verify(accessToken, process.env.JWT_SECREAT);
+        const {userId, exp} = await jwt.verify(accessToken, process.env.JWT_SECRET);
         if (exp < Date.now().valueOf() / 1000) {
             return res.status(401).json({error: "JWT token has expired, please login to obtain a new one"});
         }
